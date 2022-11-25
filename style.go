@@ -13,6 +13,12 @@ type StyleProperty struct {
 func (s *StyleProperty) mycolor(str string) string {
 	return color.New(color.FgHiBlue, color.BlinkSlow, color.Bold).Sprint(str)
 }
+func (s *StyleProperty) error(str string) string {
+	return color.New(color.FgHiRed).Sprint(str)
+}
+func (s *StyleProperty) log(str string) string {
+	return color.New(color.FgHiYellow).Sprint(str)
+}
 
 var style StyleProperty = StyleProperty{
 	myint: 3141592,
