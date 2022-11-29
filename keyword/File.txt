@@ -1,6 +1,5 @@
 index
 main
-test
 backup
 lastbackup
 2017backup
@@ -22,7 +21,6 @@ archive
 !backup
 www
 root
-archive
 a
 123
 data
@@ -72,5 +70,4 @@ www.root
 download
 down
 archived
-archive
 yedek
