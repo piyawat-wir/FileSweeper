@@ -2,12 +2,37 @@ package main
 
 import (
 	"fmt"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
+	"time"
 
 	"golang.org/x/exp/slices"
 )
+
+var client = http.Client{
+	Transport: &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+		}).DialContext,
+		MaxIdleConnsPerHost:   5,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+	},
+}
+var acceptHTTPStatus = []int{
+	http.StatusOK,
+	http.StatusForbidden,
+	http.StatusMovedPermanently,
+	http.StatusFound,
+	http.StatusNotModified,
+	http.StatusTemporaryRedirect,
+}
 
 func getStatusCode(url string) int {
 	var retry = 0

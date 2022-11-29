@@ -4,8 +4,6 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"net"
-	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -16,40 +14,11 @@ import (
 	"github.com/fatih/color"
 )
 
-var updateCurrentLine string = "\033[2K\r"
-
 var FILE_ERROR_RETRY = 3
 var FILE_PATH = "./keyword/"
 var DEFAULT_FILE_MODE os.FileMode = 0666
 var MAX_RETRY = 3
 var VERBOSE_ENABLE = false
-
-var client = http.Client{
-	Transport: &http.Transport{
-		Proxy: http.ProxyFromEnvironment,
-		DialContext: (&net.Dialer{
-			Timeout:   30 * time.Second,
-			KeepAlive: 30 * time.Second,
-		}).DialContext,
-		MaxIdleConnsPerHost:   5,
-		MaxIdleConns:          100,
-		IdleConnTimeout:       90 * time.Second,
-		TLSHandshakeTimeout:   10 * time.Second,
-		ExpectContinueTimeout: 1 * time.Second,
-	},
-}
-var acceptHTTPStatus = []int{
-	http.StatusOK,
-	http.StatusForbidden,
-	http.StatusMovedPermanently,
-	http.StatusFound,
-	http.StatusNotModified,
-	http.StatusTemporaryRedirect,
-}
-var MapSingularToPlural = map[string]string{
-	"directory": "directories",
-	"file":      "files",
-}
 
 type CompoundType struct {
 	Directory []string

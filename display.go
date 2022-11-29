@@ -7,6 +7,12 @@ import (
 	"time"
 )
 
+var updateCurrentLine string = "\033[2K\r"
+var MapSingularToPlural = map[string]string{
+	"directory": "directories",
+	"file":      "files",
+}
+
 func warn(str string) {
 	if VERBOSE_ENABLE {
 		fmt.Println(style.warn(str))
