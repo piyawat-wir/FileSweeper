@@ -49,10 +49,15 @@ func sweepPath(startURL string) []string {
 		}
 	}
 
-	fmt.Printf(updateCurrentLine+"Found %d %s\n",
-		len(foundPath),
-		decidePlural("directory", len(foundPath)),
-	)
+	if len(foundPath) > 0 {
+		fmt.Printf(updateCurrentLine+"Found %d %s @ %s\n",
+			len(foundPath),
+			decidePlural("directory", len(foundPath)),
+			startURL,
+		)
+	}
+
+	fmt.Print(updateCurrentLine)
 
 	return foundPath
 }
@@ -80,11 +85,15 @@ func sweepFile(startURL string) []string {
 		}
 	}
 
-	fmt.Printf(updateCurrentLine+"Found %d %s @ %s\n",
-		len(foundFile),
-		decidePlural("file", len(foundFile)),
-		startURL,
-	)
+	if len(foundFile) > 0 {
+		fmt.Printf(updateCurrentLine+"Found %d %s @ %s\n",
+			len(foundFile),
+			decidePlural("file", len(foundFile)),
+			startURL,
+		)
+	}
+
+	fmt.Print(updateCurrentLine)
 
 	return foundFile
 }
