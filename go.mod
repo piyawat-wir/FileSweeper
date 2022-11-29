@@ -1,4 +1,4 @@
-module test/testgolang
+module yawncodcat/filesweep
 
 go 1.19
 
